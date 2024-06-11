@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Counter = ({ finishGame }) => {
   const [count, setCount] = useState(0);
 
+  //   menambah keydown event listener
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [count]);
+
   const handleClick = () => {
     setCount(count + 1);
+  };
+
+  //   menambahkan keydown event handler
+  const handleKeyPress = (event) => {
+    console.log('key pressed'); // Tambahkan console.log disini
+    const { key } = event;
+    if (key === 'Enter') {
+      setCount(count + 1);
+    }
   };
 
   return (
